@@ -67,7 +67,15 @@ app.get('/weather', (request, response, next) => {
     // let latStr = lat.toString();
     let search = request.query.search;
     // console.log(weatherData[1].city_name);
-    let weatherObj = weatherData.find(i => i.city_name === search);
+    let weatherObj = weatherData.find(i => i.city_name.toLowerCase() === search.toLowerCase());
+
+    let toBeRenderWeatherObj = [];
+    for (let j = 0; j < weatherObj.data.length; j++) {
+      let indWeatherObj = new Forecast(weatherObj, j);
+
+      toBeRenderWeatherObj.push(indWeatherObj);
+    }
+
     // let weatherArr = [];
     // function to create weather array
     // let weatherArrFn = (weatherObj) => {
@@ -77,9 +85,9 @@ app.get('/weather', (request, response, next) => {
     //   }
     // };
     // weatherArrFn();
-    let renderWeather = new Forecast(weatherObj, 0);
+    // let renderWeather = new Forecast(weatherObj, 0);
 
-    response.send(renderWeather);
+    response.send(toBeRenderWeatherObj);
   } catch (error) {
     next(error);
   }
