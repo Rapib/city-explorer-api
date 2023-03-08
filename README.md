@@ -20,6 +20,7 @@ Website: https://cityxplorer.netlify.app/
 
 01-01-2001 4:59pm - Application now has a fully-functional express server, with a GET route for the location resource. -->
 
+![lab 7](img/lab7.jpg)
 03-06-2023 1520 - Weibiste is up with API token
 03-06-2023 1730 - location function complete
 03-06-2023 2030 - map function complete
