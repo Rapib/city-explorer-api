@@ -54,20 +54,51 @@ const PORT = process.env.PORT || 3002;
 //   response.send(`hello ${firstName}`);
 // });
 
-app.get('/weather', (request, response,next) => {
+app.get('/weather', (request, response, next) => {
   try {
-    response.send(request.query);
-    
+
+
     // let lat = request.query.lat;
-    // let lon = request.query.lon;
+    // let lon = request.query.lon.toString();
+    // let latStr = lat.toString();
     let search = request.query.search;
-    console.log(weatherData);
+    // console.log(weatherData[1].city_name);
     let weatherObj = weatherData.find(i => i.city_name === search);
-    response.send('good search');
-    
+    // let weatherArr = [];
+    // function to create weather array
+    // let weatherArrFn = (weatherObj) => {
+    //   for (let i = 0; i < weatherObj.length; i++) {
+    //     weatherArr.push(new Forecast(weatherObj, i));
+    //     console.log(weatherArr);
+    //   }
+    // };
+    // weatherArrFn();
+    let renderWeather = new Forecast(weatherObj, 0);
+
+    response.send(renderWeather);
   } catch (error) {
     next(error);
   }
+});
+
+
+
+
+
+//lab7-2-5 class
+// SAMPLE "description": "Low of 17.1, high of 23.6 with broken clouds",
+class Forecast {
+  constructor(weatherObjFromSearch, i) {
+    this.date = weatherObjFromSearch.data[i].datetime;
+    this.description = `Low of ${weatherObjFromSearch.data[i].low_temp.toString()}, high of ${weatherObjFromSearch.data[i].max_temp.toString()} with ${weatherObjFromSearch.data[i].weather.description}`;
+  }
+}
+
+
+// ERRORS
+// handle all the errors
+app.use((error, request, response, next) => {
+  response.status(500).send(error.message);
 });
 
 // 5. LISTEN
