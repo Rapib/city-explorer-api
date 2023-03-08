@@ -5,6 +5,7 @@
 **Version**: 1.0.0 (increment the patch/fix version number if you make more commits past your first submission)
 
 Website: https://cityxplorer.netlify.app/
+server:  https://city-explorer-api-qoh3.onrender.com/ 
 ## Overview
 <!-- Provide a high level overview of what this application is and why you are building it, beyond the fact that it's an assignment for this class. (i.e. What's your problem domain?) -->
 
@@ -21,54 +22,44 @@ Website: https://cityxplorer.netlify.app/
 01-01-2001 4:59pm - Application now has a fully-functional express server, with a GET route for the location resource. -->
 
 ![lab 7](img/lab7.jpg)
-03-06-2023 1520 - Weibiste is up with API token
-03-06-2023 1730 - location function complete
-03-06-2023 2030 - map function complete
+03-07-2023 1530 - Weibiste is up with API token
+03-07-2023 2030 - weather function 
+03-07-2023 2330 - error function 
 
 Name of feature: 1. Set up
 
-Estimate of time needed to complete: 30min_
+Estimate of time needed to complete: 660min_
 
-Start time: 1500
+Start time: 1430
 
-Finish time: 1520
+Finish time: 1530
 
-Actual time needed to complete: 20min
+Actual time needed to complete: 60min
 
 ---------
 
-Name of feature: _2. Locations
+Name of feature: _2. weather
 
-Estimate of time needed to complete: 60min
+Estimate of time needed to complete: 180min
 
 Start time: 1530_
 
-Finish time: 1730_
+Finish time: 2030_
 
-Actual time needed to complete: _120min
+Actual time needed to complete: _5hr
 
 ----------
 
-Name of feature: 3. map
+Name of feature: 3. error
 
-Estimate of time needed to complete: _120min_
-
-Start time: 1730_
-
-Finish time: 2030
-
-Actual time needed to complete: 180min
-
----------
-
-Name of feature: _4. error
-
-Estimate of time needed to complete: 120min_
+Estimate of time needed to complete: 180min
 
 Start time: 2030
 
-Finish time: _2240_
+Finish time: 2330
 
-Actual time needed to complete: ____130min_
+Actual time needed to complete: 180min
+
+
 ## Credit and Collaborations
 <!-- Give credit (and a link) to other people or resources that helped you build this application. -->
