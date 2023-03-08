@@ -54,6 +54,10 @@ const PORT = process.env.PORT || 3002;
 //   response.send(`hello ${firstName}`);
 // });
 
+app.get('/', (request, response) => {
+  response.send('There is nothing to see here!');
+});
+
 app.get('/weather', (request, response, next) => {
   try {
 
@@ -81,8 +85,10 @@ app.get('/weather', (request, response, next) => {
   }
 });
 
-
-
+// for another url, gives out error
+app.get('*', (req, res) => {
+  res.send('This page does not exist!');
+});
 
 
 //lab7-2-5 class
@@ -98,7 +104,7 @@ class Forecast {
 // ERRORS
 // handle all the errors
 app.use((error, request, response, next) => {
-  response.status(500).send(error.message);
+  response.status(500).send(`Error Report: ${error.message}`);
 });
 
 // 5. LISTEN
@@ -106,7 +112,7 @@ app.use((error, request, response, next) => {
 // listen is Express methtod that takes in two arguments, a port value and a call back function
 // to run it: npm start OR nodemon (auto update with any changes, much better)
 
-app.listen(PORT, () => console.log('port works'));
+app.listen(PORT, () => console.log('3001 port works'));
 
 
 
