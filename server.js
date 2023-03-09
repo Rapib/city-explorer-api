@@ -11,8 +11,9 @@ const express = require('express');
 
 const cors = require('cors');
 //not import because this is not react, it is nodeJs
-const axios = require('axios');
-
+// const axios = require('axios');
+const getWeather = require('./modules/weather');
+const geMovie = require('./modules/movie');
 // 3. we need to bring in our .env file, so we'll use this after we have run 'npm i dotenv'
 require('dotenv').config();
 
@@ -59,60 +60,10 @@ app.get('/', (request, response) => {
 });
 
 
-app.get('/movie', async (request, response, next) => {
-  try {
-    let keyword = request.query.keyword;
-    let movieDataFromApi = await axios.get(`https://api.themoviedb.org/3/search/movie?api_key=${process.env.MOVIE_API_KEY}&language=en-US&query=${keyword}&page=1&include_adult=false`);
-
-    let sortMovieData = movieDataFromApi.data.results.map(i => new Movie(i));
-    console.log(sortMovieData);
-    response.send(sortMovieData);
-
-  } catch (error) {
-    next(error);
-  }
-});
+app.get('/movie', geMovie );
 
 
-app.get('/weather', async (request, response, next) => {
-  try {
-
-    let lat = request.query.lat;
-
-    let lon = request.query.lon;
-    console.log(lat);
-    console.log(lon);
-    let weatherDataFromApii = await axios.get(`https://api.weatherbit.io/v2.0/forecast/daily?&lat=${lat}&lon=${lon}&days=5&units=I&key=${process.env.WEATHER_API_KEY}`);
-
-    // let lat = request.query.lat;
-    // let lon = request.query.lon.toString();
-    // let latStr = lat.toString();
-    // let search = request.query.search;
-    // let weatherObj = weatherData.find(i => i.city_name.toLowerCase() === search.toLowerCase());
-    let weatherObjLatLon = weatherDataFromApii.data;
-    let toBeRenderWeatherObj = [];
-    for (let j = 0; j < weatherObjLatLon.data.length; j++) {
-      let indWeatherObj = new Forecast(weatherObjLatLon, j);
-
-      toBeRenderWeatherObj.push(indWeatherObj);
-    }
-
-    // let weatherArr = [];
-    // function to create weather array
-    // let weatherArrFn = (weatherObj) => {
-    //   for (let i = 0; i < weatherObj.length; i++) {
-    //     weatherArr.push(new Forecast(weatherObj, i));
-    //     console.log(weatherArr);
-    //   }
-    // };
-    // weatherArrFn();
-    // let renderWeather = new Forecast(weatherObj, 0);
-
-    response.send(toBeRenderWeatherObj);
-  } catch (error) {
-    next(error);
-  }
-});
+app.get('/weather', getWeather);
 
 // for another url, gives out error
 app.get('*', (req, res) => {
@@ -122,24 +73,24 @@ app.get('*', (req, res) => {
 
 //lab7-2-5 class
 // SAMPLE "description": "Low of 17.1, high of 23.6 with broken clouds",
-class Forecast {
-  constructor(weatherObjFromSearch, i) {
-    this.date = weatherObjFromSearch.data[i].datetime;
-    this.description = `Low of ${weatherObjFromSearch.data[i].low_temp}, high of ${weatherObjFromSearch.data[i].max_temp} with ${weatherObjFromSearch.data[i].weather.description}`;
-  }
-}
+// class Forecast {
+//   constructor(weatherObjFromSearch, i) {
+//     this.date = weatherObjFromSearch.data[i].datetime;
+//     this.description = `Low of ${weatherObjFromSearch.data[i].low_temp}, high of ${weatherObjFromSearch.data[i].max_temp} with ${weatherObjFromSearch.data[i].weather.description}`;
+//   }
+// }
 
-class Movie {
-  constructor(movieFromSearch) {
-    this.title = movieFromSearch.original_title;
-    this.overview = movieFromSearch.overview;
-    this.average_votes = movieFromSearch.vote_average;
-    this.total_votes = movieFromSearch.vote_count;
-    this.image_url = `https://image.tmdb.org/t/p/w500${movieFromSearch.poster_path}`;
-    this.popularity = movieFromSearch.popularity;
-    this.released_on = movieFromSearch.release_date;
-  }
-}
+// class Movie {
+//   constructor(movieFromSearch) {
+//     this.title = movieFromSearch.original_title;
+//     this.overview = movieFromSearch.overview;
+//     this.average_votes = movieFromSearch.vote_average;
+//     this.total_votes = movieFromSearch.vote_count;
+//     this.image_url = `https://image.tmdb.org/t/p/w500${movieFromSearch.poster_path}`;
+//     this.popularity = movieFromSearch.popularity;
+//     this.released_on = movieFromSearch.release_date;
+//   }
+// }
 
 // ERRORS
 // handle all the errors
