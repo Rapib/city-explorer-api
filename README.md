@@ -61,5 +61,32 @@ Finish time: 2330
 Actual time needed to complete: 180min
 
 
+![lab 8](img/lab8.jpg)
+03-08-2023 2145 - Weather is Live
+
+Name of feature: 1. Weather  Live
+
+Estimate of time needed to complete: 660min_
+
+Start time: 1430
+
+Finish time: 2145
+
+Actual time needed to complete: 7hr
+
+---------
+
+Name of feature: 2. movie
+
+Estimate of time needed to complete: 5hrs
+
+Start time: 2145
+
+Finish time: 2145
+
+Actual time needed to complete: 7hr
+
+
+
 ## Credit and Collaborations
 <!-- Give credit (and a link) to other people or resources that helped you build this application. -->
