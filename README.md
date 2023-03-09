@@ -100,7 +100,22 @@ Finish time: 0000
 
 Actual time needed to complete: 1hr
 
+--------------------------------------------------
 
+Lab9
+03-09-2023 1500 - Refactor
+
+Name of feature: 1. Refactor
+
+Estimate of time needed to complete: 60min_
+
+Start time: 1430
+
+Finish time: 1500
+
+Actual time needed to complete: 30min
+
+---------
 
 ## Credit and Collaborations
 <!-- Give credit (and a link) to other people or resources that helped you build this application. -->
