@@ -117,5 +117,19 @@ Actual time needed to complete: 30min
 
 ---------
 
+![lab 10](img/lab10.jpg)
+
+03-10-2023 1600 - Refactor
+
+Name of feature: 1. Performance
+
+Estimate of time needed to complete: 240min_
+
+Start time: 1430
+
+Finish time: 1600
+
+Actual time needed to complete: 1.5hr
+
 ## Credit and Collaborations
 <!-- Give credit (and a link) to other people or resources that helped you build this application. -->

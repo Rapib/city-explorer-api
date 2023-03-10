@@ -1,51 +1,41 @@
 'use strict';
+
+let cache = require('./cache.js');
 const axios = require('axios');
 
-class Forecast {
-  constructor(weatherObjFromSearch, i) {
-    this.date = weatherObjFromSearch.data[i].datetime;
-    this.description = `Low of ${weatherObjFromSearch.data[i].low_temp}, high of ${weatherObjFromSearch.data[i].max_temp} with ${weatherObjFromSearch.data[i].weather.description}`;
+
+async function getWeather(lat, lon) {
+  const key = 'weather-' + lat + lon;
+  const url = `http://api.weatherbit.io/v2.0/forecast/daily/?key=${process.env.WEATHER_API_KEY}&lang=en&lat=${lat}&lon=${lon}&days=5`;
+
+  if (cache[key] && (Date.now() - cache[key].timestamp < 86400000)) {
+    console.log('weather Cache hit');
+  } else {
+    console.log('weather Cache miss');
+    cache[key] = {};
+    cache[key].timestamp = Date.now();
+    cache[key].data = await axios.get(url)
+      .then(response => parseWeather(response.data));
+  }
+  // console.log(cache[key]);
+  return cache[key].data;
+}
+
+function parseWeather(weatherData) {
+  try {
+    const weatherSummaries = weatherData.data.map(day => {
+      return new Weather(day);
+    });
+    return Promise.resolve(weatherSummaries);
+  } catch (e) {
+    return Promise.reject(e);
   }
 }
 
-
-async function getWeather (request, response, next) {
-  try {
-
-    let lat = request.query.lat;
-
-    let lon = request.query.lon;
-    // console.log(lat);
-    // console.log(lon);
-    let weatherDataFromApii = await axios.get(`https://api.weatherbit.io/v2.0/forecast/daily?&lat=${lat}&lon=${lon}&days=5&units=I&key=${process.env.WEATHER_API_KEY}`);
-
-    // let lat = request.query.lat;
-    // let lon = request.query.lon.toString();
-    // let latStr = lat.toString();
-    // let search = request.query.search;
-    // let weatherObj = weatherData.find(i => i.city_name.toLowerCase() === search.toLowerCase());
-    let weatherObjLatLon = weatherDataFromApii.data;
-    let toBeRenderWeatherObj = [];
-    for (let j = 0; j < weatherObjLatLon.data.length; j++) {
-      let indWeatherObj = new Forecast(weatherObjLatLon, j);
-
-      toBeRenderWeatherObj.push(indWeatherObj);
-    }
-
-    // let weatherArr = [];
-    // function to create weather array
-    // let weatherArrFn = (weatherObj) => {
-    //   for (let i = 0; i < weatherObj.length; i++) {
-    //     weatherArr.push(new Forecast(weatherObj, i));
-    //     console.log(weatherArr);
-    //   }
-    // };
-    // weatherArrFn();
-    // let renderWeather = new Forecast(weatherObj, 0);
-
-    response.send(toBeRenderWeatherObj);
-  } catch (error) {
-    next(error);
+class Weather {
+  constructor(day) {
+    this.forecast = day.weather.description;
+    this.time = day.datetime;
   }
 }
 
