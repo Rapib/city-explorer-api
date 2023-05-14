@@ -21,7 +21,8 @@ async function getMovie(request, response, next) {
     const key = 'movie-' + keyword;
 
     let movieDataFromApi = await axios.get(`https://api.themoviedb.org/3/search/movie?api_key=${process.env.MOVIE_API_KEY}&language=en-US&query=${keyword}&page=1&include_adult=false`);
-    let sortMovieData = movieDataFromApi.data.results.map(i => new Movie(i));
+    let sortMovieData = movieDataFromApi.data.results.map(i => new Movie(i)).slice(0,2);
+  
 
     if (cache[key] && (Date.now() - cache[key].timestamp < 864000000)) {
       console.log('movie Cache hit');
@@ -33,7 +34,6 @@ async function getMovie(request, response, next) {
       response.send(sortMovieData);
     }
 
-    // console.log(sortMovieData);
     response.send(cache[key].data);
 
   } catch (error) {

@@ -3,7 +3,6 @@
 let cache = require('./cache.js');
 const axios = require('axios');
 
-
 async function getWeather(lat, lon) {
   const key = 'weather-' + lat + lon;
   const url = `http://api.weatherbit.io/v2.0/forecast/daily/?key=${process.env.WEATHER_API_KEY}&lang=en&lat=${lat}&lon=${lon}&days=5`;
@@ -17,7 +16,6 @@ async function getWeather(lat, lon) {
     cache[key].data = await axios.get(url)
       .then(response => parseWeather(response.data));
   }
-  // console.log(cache[key]);
   return cache[key].data;
 }
 
